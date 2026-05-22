@@ -19,13 +19,17 @@ const handleRegister = async () => {
   successMessage.value = ''
   
   try {
+    // Filtrar y asegurar que el rol a registrar sea estrictamente uno de los permitidos públicamente
+    const rolesPermitidos = ['cliente', 'barbero', 'dueño']
+    const rolFiltrado = rolesPermitidos.includes(rol.value) ? rol.value : 'cliente'
+
     const { data, error } = await supabase.auth.signUp({
       email: email.value,
       password: password.value,
       options: {
         data: {
           nombre: nombre.value,
-          rol: rol.value
+          rol: rolFiltrado
         }
       }
     })

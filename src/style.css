@@ -10,8 +10,24 @@
 
 @layer base {
   body {
-    @apply bg-brand-dark text-white antialiased;
+    @apply bg-brand-dark text-white antialiased relative min-h-screen;
     font-family: var(--font-sans);
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('./assets/bg-luxury.png');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.15; /* Sutil para que no distraiga */
+    filter: blur(40px); /* Difuminado fuerte para profundidad */
+    z-index: -1;
+    pointer-events: none;
   }
 
   h1, h2, h3, h4, h5, h6 {

@@ -41,7 +41,7 @@ const router = useRouter()
         </p>
 
         <div class="flex gap-4 pt-4">
-          <button @click="router.push('/register')" class="btn-primary flex items-center gap-2">
+          <button @click="router.push('/client-dashboard')" class="btn-primary flex items-center gap-2 cursor-pointer">
             <Calendar class="w-5 h-5" />
             Agenda ahora
           </button>

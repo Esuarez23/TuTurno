@@ -11,42 +11,44 @@ const getIcon = (type: string) => {
 }
 
 const getColors = (type: string) => {
-  if (type === 'success') return 'border-green-500/50 bg-green-500/10 text-green-400'
-  if (type === 'error') return 'border-red-500/50 bg-red-500/10 text-red-400'
-  return 'border-brand-primary/50 bg-brand-primary/10 text-brand-primary'
+  if (type === 'success') return 'border-brand-primary/30 bg-brand-surface text-brand-primary shadow-brand-primary/5'
+  if (type === 'error') return 'border-red-500/30 bg-brand-surface text-red-500 shadow-red-500/5'
+  return 'border-white/10 bg-brand-surface text-white shadow-white/5'
 }
 </script>
 
 <template>
-  <div class="fixed top-6 right-6 z-[9999] flex flex-col gap-3 w-full max-w-sm pointer-events-none">
+  <div class="fixed bottom-8 right-8 z-[9999] flex flex-col gap-3 w-full max-w-sm pointer-events-none">
     <TransitionGroup 
-      enter-active-class="transform transition duration-300 ease-out"
-      enter-from-class="translate-x-12 opacity-0"
-      enter-to-class="translate-x-0 opacity-100"
-      leave-active-class="transform transition duration-200 ease-in"
-      leave-from-class="opacity-100"
-      leave-to-class="translate-x-4 opacity-0"
+      enter-active-class="transform transition duration-500 cubic-bezier(0.175, 0.885, 0.32, 1.275)"
+      enter-from-class="translate-y-12 opacity-0 scale-90"
+      enter-to-class="translate-y-0 opacity-100 scale-100"
+      leave-active-class="transform transition duration-300 ease-in"
+      leave-from-class="opacity-100 scale-100"
+      leave-to-class="translate-x-12 opacity-0 scale-90"
     >
       <div 
         v-for="n in notifications" 
         :key="n.id"
-        class="pointer-events-auto p-4 rounded-2xl border backdrop-blur-xl shadow-2xl flex items-start gap-3 relative overflow-hidden group"
+        class="pointer-events-auto p-5 rounded-[25px] border backdrop-blur-2xl shadow-2xl flex items-center gap-4 relative overflow-hidden group"
         :class="getColors(n.type)"
       >
-        <!-- Progress bar animation -->
+        <!-- Luxury Progress Line -->
         <div 
-          class="absolute bottom-0 left-0 h-0.5 bg-current opacity-20"
+          class="absolute bottom-0 left-0 h-1 bg-current opacity-20"
           :style="{ animation: `progress ${n.duration}ms linear forwards` }"
         ></div>
 
-        <component :is="getIcon(n.type)" class="w-5 h-5 mt-0.5 shrink-0" />
+        <div class="shrink-0">
+          <component :is="getIcon(n.type)" class="w-6 h-6" />
+        </div>
         
-        <div class="flex-1 pr-4">
-          <p class="text-sm font-bold leading-tight">{{ n.message }}</p>
+        <div class="flex-1">
+          <p class="text-xs font-black uppercase italic tracking-tighter leading-tight">{{ n.message }}</p>
         </div>
 
-        <button @click="removeNotification(n.id)" class="opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
-          <X class="w-4 h-4" />
+        <button @click="removeNotification(n.id)" class="opacity-0 group-hover:opacity-100 transition-opacity p-1 hover:bg-white/5 rounded-lg cursor-pointer">
+          <X class="w-4 h-4 opacity-40" />
         </button>
       </div>
     </TransitionGroup>
